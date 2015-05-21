@@ -1,4 +1,5 @@
 from tennis import Tennis
+from tennis import Joueur
 import unittest
 
 class TennisTest(unittest.TestCase):
@@ -28,4 +29,4 @@ class TennisTest(unittest.TestCase):
 		return 0
 
 if __name__ == '__main__':
-    unittest.main()
+	unittest.main()

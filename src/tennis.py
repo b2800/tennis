@@ -2,8 +2,9 @@
 class Tennis:
 
 	def __init__(self, joueur1, joueur2):
-	 	self.scores[joueur1] = Score()
-	 	self.scores[joueur2] = Score()
+		self.scores = {}
+		self.scores[joueur1] = Score()
+		self.scores[joueur2] = Score()
 
 	def MarquerPoint(self, joueur):
 		self.scores[joueur].MarquerPoint()
@@ -15,8 +16,8 @@ class Tennis:
 class Score:
 
 	def __init__(self):
-	 	self.point = 0
-	 	self.sets = []
+		self.point = 0
+		self.sets = []
 
 	def MarquerPoint(self):
 		self.point += 1
@@ -39,5 +40,5 @@ class Score:
 
 
 class Joueur:
-	 def __init__(self, nomDuJoueur):
-	 	self.nom = nomDuJoueur
+	def __init__(self, nomDuJoueur):
+		self.nom = nomDuJoueur
