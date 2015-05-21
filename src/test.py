@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from tennis import Tennis
 from tennis import Joueur
 import unittest
