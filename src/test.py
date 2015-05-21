@@ -12,13 +12,24 @@ class TennisTest(unittest.TestCase):
 		
 		Match.MarquerPoint(federer)
 
-		self.assertEqual(Match.PointsDuJoueur(federer), "15");
+		self.assertEqual(Match.PointsDuJoueur(federer), "15")
 
-	def test_peut_gagner_un_jeu(self):
-		return 0
+	def test_peut_gagner_un_jeu_simple(self):
 
+		federer = Joueur("federer")
+		nadal = Joueur("Nadal")
+		Match = Tennis(federer, nadal)
 
-	def test_peut_provoquer_un_tie_break(self):
+		Match.MarquerPoint(federer)
+		Match.MarquerPoint(federer)
+		Match.MarquerPoint(federer)
+		Match.MarquerPoint(federer)
+
+		self.assertEqual(Match.ListeDesSetsDuJoueur(federer)[0], 1)	# On vérifie la premiére case des sets, 
+																	# qui correspond au nombre de jeux gagnés 
+																	# dans le premier set
+
+	def test_peut_marquer_un_point_en_tie_break(self):
 		return 0
 
 	
