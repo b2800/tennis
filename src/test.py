@@ -1,4 +1,4 @@
-import Tennis from tennis
+from tennis import Tennis
 import unittest
 
 class TennisTest(unittest.TestCase):
