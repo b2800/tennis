@@ -19,7 +19,7 @@ class Score:
 	 	self.sets = []
 
 	def MarquerPoint(self):
-		self.point++
+		self.point += 1
 
 	def RepresentationPoint(self):
 		if(self.point == 0):
