@@ -10,7 +10,7 @@ class TennisTest(unittest.TestCase):
 
 		Match.MarquerPoint(federer)
 
-		self.assertEqual(Match.PointsDuJoueur(federer), 15);
+		self.assertEqual(Match.PointsDuJoueur(federer), "15");
 		return 0
 
 	def test_peut_provoquer_un_tie_break(self):
