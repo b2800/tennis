@@ -4,10 +4,11 @@ import unittest
 class TennisTest(unittest.TestCase):
 
 	def test_peut_marquer_un_point(self):
-		Match = Tennis()
+
 		federer = Joueur("federer")
 		nadal = Joueur("Nadal")
-
+		Match = Tennis(federer, nadal)
+		
 		Match.MarquerPoint(federer)
 
 		self.assertEqual(Match.PointsDuJoueur(federer), "15");
@@ -26,5 +27,5 @@ class TennisTest(unittest.TestCase):
 	def test_peut_gagner_un_match(self):
 		return 0
 
-
-	
+if __name__ == '__main__':
+    unittest.main()
