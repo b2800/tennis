@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# jbdusseaut@arpinum.fr
+
 from tennis import MatchDeTennis
 from tennis import Joueur
 import unittest
@@ -19,10 +21,7 @@ class TennisTest(unittest.TestCase):
 		nadal = Joueur("Nadal")
 		Match = MatchDeTennis(federer, nadal)
 
-		Match.MarquerPoint(federer)
-		Match.MarquerPoint(federer)
-		Match.MarquerPoint(federer)
-		Match.MarquerPoint(federer)
+		MarquerXPoints( Match, federer, 4)
 
 		self.assertEqual(Match.ListeDesSetsDuJoueur(federer)[0], 1)	# On vérifie la premiére case des sets, 
 																	# qui correspond au nombre de jeux gagnés 
@@ -33,14 +32,8 @@ class TennisTest(unittest.TestCase):
 		nadal = Joueur("Nadal")
 		Match = MatchDeTennis(federer, nadal)
 
-		Match.MarquerPoint(federer)
-		Match.MarquerPoint(federer)
-		Match.MarquerPoint(federer)
-
-		Match.MarquerPoint(nadal)
-		Match.MarquerPoint(nadal)
-		Match.MarquerPoint(nadal)
-		Match.MarquerPoint(nadal)
+		MarquerXPoints( Match, federer, 3)
+		MarquerXPoints( Match, nadal, 4)
 
 		self.assertEqual(Match.PointsDuJoueur(nadal), "Avantage")
 
@@ -57,10 +50,25 @@ class TennisTest(unittest.TestCase):
 		self.assertEqual( Match.PointsDuJoueur(federer), "40")
 
 	def test_peut_gagner_un_jeu_avec_avantage(self):
-		return 0
+		federer = Joueur("Federer")
+		nadal = Joueur("Nadal")
+		Match = MatchDeTennis(federer, nadal)
+
+		MarquerXPoints( Match, nadal, 3)
+		MarquerXPoints( Match, federer, 5)
+
+		self.assertEqual(Match.ListeDesSetsDuJoueur(federer)[0], 1)
+		self.assertEqual(Match.PointsDuJoueur(federer), "0")
+		self.assertEqual(Match.PointsDuJoueur(nadal), "0")
 
 	def test_peut_gagner_un_set_simple(self):
-		return 0
+		federer = Joueur("Federer")
+		nadal = Joueur("Nadal")
+		Match = MatchDeTennis(federer, nadal)
+
+		MarquerXPoints( Match, nadal, 4*6)
+
+		self.assertEqual(Match.NombreSetsGagnesDuJoueur(nadal), 1)
 
 	def test_peut_marquer_un_point_en_tie_break(self):
 		return 0

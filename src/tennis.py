@@ -45,6 +45,19 @@ class MatchDeTennis:
 	def ListeDesSetsDuJoueur(self, joueur):
 		return self.scores[joueur].ListeDesSets()
 
+	def NombreSetsGagnesDuJoueur(self, joueur):
+		nb = 0
+		nb_sets_joues = len(self.scores[joueur].ListeDesSets())
+
+		for i in range(0, nb_sets_joues):
+			jeux_joueur = self.scores[joueur].ListeDesSets()[i]
+			jeux_adverse = self.scores[self.JoueurAdverse(joueur)].ListeDesSets()[i]
+
+			if jeux_adverse == 6 or jeux_joueur == 6:
+				if jeux_joueur - jeux_adverse >= 2:
+					nb += 1
+		return nb
+
 
 class Score:
 
