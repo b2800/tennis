@@ -11,6 +11,10 @@ class MatchDeTennis:
 		self.scores[joueur2] = Score()
 
 	def MarquerPoint(self, joueur):
+		if self.scores[joueur].GetTieBreak():
+			self._MarquerPointEnTieBreak(joueur)
+			return
+
 		pointsAdverses = self.scores[self.JoueurAdverse(joueur)].GetPoints()
 		pointsJoueur = self.scores[joueur].GetPoints()
 
@@ -22,7 +26,7 @@ class MatchDeTennis:
 		# Si avantage ou déja a 40, alors on gagne 
 		# ( A ce stade, l'adversaire est nécessairement en dessous de 40)
 		if pointsJoueur == 4 or ( pointsJoueur == 3 and pointsAdverses < 3):
-			self.scores[joueur].GagnerJeu()
+			self._GagnerJeu(joueur)
 			self.scores[self.JoueurAdverse(joueur)].ResetPoint()
 			return
 
@@ -57,6 +61,31 @@ class MatchDeTennis:
 				if jeux_joueur - jeux_adverse >= 2:
 					nb += 1
 		return nb
+
+	def SetTieBreak(self, value):
+		self.scores[self.joueur1].SetTieBreak(True)
+		self.scores[self.joueur2].SetTieBreak(True)
+
+	def _MarquerPointEnTieBreak(self, joueur):
+
+		pointsJoueur = self.scores[joueur].GetPoints()
+		pointsAdverse = self.scores[self.JoueurAdverse(joueur)].GetPoints()
+
+		if pointsJoueur >= 7 and ( pointsJoueur - pointsAdverse >= 2):
+			self.scores[joueur].GagnerJeu()
+			self.scores[self.JoueurAdverse(joueur)].ResetPoint()
+			return
+
+		self.scores[joueur].MarquerPoint()
+
+	def _GagnerJeu(self, joueur):
+		self.scores[joueur].GagnerJeu()
+		sets_gagnes = self.scores[joueur].ListeDesSets()[-1] # Dernier element
+		sets_gagnes_joueur_adverse = self.scores[self.JoueurAdverse(joueur)].ListeDesSets()[-1]
+
+		if sets_gagnes == 6 and sets_gagnes_joueur_adverse == 6:
+			self.SetTieBreak(True)
+
 
 
 class Score:
@@ -101,14 +130,17 @@ class Score:
 		return self.sets[X]
 
 	def GagnerJeu(self):
-		index_dernier_set = len(self.sets) - 1
-
-		self.sets[index_dernier_set] += 1
-
+		self.sets[-1] += 1 # Incrémente le dernier set en cours
 		self.ResetPoint()
 
 	def ListeDesSets(self):
 		return self.sets
+
+	def SetTieBreak(self, value):
+		self.tieBreak = value
+
+	def GetTieBreak(self):
+		return self.tieBreak
 
 
 
