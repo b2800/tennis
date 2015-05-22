@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Tennis:
+class MatchDeTennis:
 
 	def __init__(self, joueur1, joueur2):
 		self.joueur1 = joueur1
@@ -21,14 +21,17 @@ class Tennis:
 
 		# Si avantage ou déja a 40, alors on gagne 
 		# ( A ce stade, l'adversaire est nécessairement en dessous de 40)
-		if pointsJoueur == 4 or pointsJoueur == 3:
+		if pointsJoueur == 4 or ( pointsJoueur == 3 and pointsAdverses < 3):
 			self.scores[joueur].GagnerJeu()
 			self.scores[self.JoueurAdverse(joueur)].ResetPoint()
 			return
 
+		if pointsJoueur == 3 and pointsAdverses == 4:
+			self.scores[self.JoueurAdverse(joueur)].DiminuerPoint()
+			return
+
 		# Si aucun cas particulier, on marque simplement un point
 		self.scores[joueur].MarquerPoint()
-		
 
 	def JoueurAdverse(self, joueur):
 		if joueur == self.joueur1:
@@ -48,8 +51,12 @@ class Score:
 	def __init__(self):
 		self.point = 0
 		self.sets = [0]
+		self.tieBreak = False
 
 	def RepresentationPoint(self):
+		if self.tieBreak:
+			return self.point
+
 		if(self.point == 0):
 			return "0"
 
@@ -76,6 +83,9 @@ class Score:
 
 	def GetPoints(self):
 		return self.point
+
+	def SetNumero(self, X):
+		return self.sets[X]
 
 	def GagnerJeu(self):
 		index_dernier_set = len(self.sets) - 1
