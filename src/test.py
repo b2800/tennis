@@ -7,17 +7,14 @@ import unittest
 class TennisTest(unittest.TestCase):
 
 	def test_peut_marquer_un_point(self):
-
 		federer = Joueur("federer")
 		nadal = Joueur("Nadal")
 		Match = Tennis(federer, nadal)
-		
-		Match.MarquerPoint(federer)
 
+		Match.MarquerPoint(federer)
 		self.assertEqual(Match.PointsDuJoueur(federer), "15")
 
 	def test_peut_gagner_un_jeu_simple(self):
-
 		federer = Joueur("federer")
 		nadal = Joueur("Nadal")
 		Match = Tennis(federer, nadal)
@@ -31,9 +28,24 @@ class TennisTest(unittest.TestCase):
 																	# qui correspond au nombre de jeux gagnés 
 																	# dans le premier set
 
+	def test_peut_avoir_un_avantage(self):
+		federer = Joueur("federer")
+		nadal = Joueur("Nadal")
+		Match = Tennis(federer, nadal)
+
+		Match.MarquerPoint(federer)
+		Match.MarquerPoint(federer)
+		Match.MarquerPoint(federer)
+
+		Match.MarquerPoint(nadal)
+		Match.MarquerPoint(nadal)
+		Match.MarquerPoint(nadal)
+		Match.MarquerPoint(nadal)
+
+		self.assertEqual(Match.PointsDuJoueur(nadal), "Avantage")
+
 	def test_peut_marquer_un_point_en_tie_break(self):
 		return 0
-
 	
 	def test_peut_gagner_un_set(self):
 		return 0
