@@ -84,8 +84,21 @@ class TennisTest(unittest.TestCase):
 
 		self.assertEqual(Match.PointsDuJoueur(nadal), 1)
 
-	def test_peut_gagner_un_set_en_tie_break(self):
-		return 0
+	def test_peut_gagner_un_set_simple_en_tie_break(self):
+		federer = Joueur("Federer")
+		nadal = Joueur("Nadal")
+		Match = MatchDeTennis(federer, nadal)
+
+		MarquerXPoints(Match, nadal, 4*5)
+		MarquerXPoints(Match, federer, 4*5)
+		MarquerXPoints(Match, nadal, 4)
+		MarquerXPoints(Match, federer, 4) # Tie break ici
+
+		MarquerXPoints(Match, federer, 7)
+
+		self.assertEqual(Match.ListeDesSetsDuJoueur(federer)[0], 7)	
+		self.assertEqual(Match.ListeDesSetsDuJoueur(nadal)[0], 6)
+
 
 	def test_peut_gagner_un_match(self):
 		return 0

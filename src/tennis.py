@@ -60,6 +60,9 @@ class MatchDeTennis:
 			if jeux_adverse == 6 or jeux_joueur == 6:
 				if jeux_joueur - jeux_adverse >= 2:
 					nb += 1
+
+			if jeux_joueur == 7:
+				nb += 1
 		return nb
 
 	def SetTieBreak(self, value):
@@ -68,15 +71,17 @@ class MatchDeTennis:
 
 	def _MarquerPointEnTieBreak(self, joueur):
 
+		self.scores[joueur].MarquerPoint()
+
 		pointsJoueur = self.scores[joueur].GetPoints()
 		pointsAdverse = self.scores[self.JoueurAdverse(joueur)].GetPoints()
 
-		if pointsJoueur >= 7 and ( pointsJoueur - pointsAdverse >= 2):
+		if pointsJoueur >= 7 and ( (pointsJoueur - pointsAdverse) >= 2):
 			self.scores[joueur].GagnerJeu()
 			self.scores[self.JoueurAdverse(joueur)].ResetPoint()
 			return
 
-		self.scores[joueur].MarquerPoint()
+		
 
 	def _GagnerJeu(self, joueur):
 		self.scores[joueur].GagnerJeu()
