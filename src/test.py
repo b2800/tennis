@@ -108,20 +108,16 @@ class TennisTest(unittest.TestCase):
 		self.assertEqual(Match.ListeDesSetsDuJoueur(federer)[0], 6)	
 		self.assertEqual(Match.ListeDesSetsDuJoueur(nadal)[0], 7)
 
-
 	def test_peut_gagner_un_match_simple(self):
+
 		federer = Joueur("Federer")
 		nadal = Joueur("Nadal")
 		Match = MatchDeTennis(federer, nadal)
-
+ 
+		# Gagne 3 sets
 		MarquerXPoints(Match, nadal, 4*6)
-		print Match.ListeDesSetsDuJoueur(nadal)
-
 		MarquerXPoints(Match, nadal, 4*6)
-		print Match.ListeDesSetsDuJoueur(nadal)
-
 		MarquerXPoints(Match, nadal, 4*6)
-		print Match.ListeDesSetsDuJoueur(nadal)
 
 		self.assertEqual(Match.GetGagnant(), nadal)
 
@@ -130,18 +126,14 @@ class TennisTest(unittest.TestCase):
 		nadal = Joueur("Nadal")
 		Match = MatchDeTennis(federer, nadal)
 
-		MarquerXPoints(Match, nadal, 4*6)
-
+		MarquerXPoints(Match, nadal, 4*6) # Gagne un set normal
 		self.ProvoquerUnTieBreak(Match, nadal, federer)
-
-		MarquerXPoints(Match, nadal, 7)
-
-		MarquerXPoints(Match, nadal, 4*6)
-		print Match.ListeDesSetsDuJoueur(nadal)
+		MarquerXPoints(Match, nadal, 7) #Gagne le set en Tie-Break
+		MarquerXPoints(Match, nadal, 4*6) # Gagne un set normal
 
 		self.assertEqual(Match.GetGagnant(), nadal)
 
-	# Attention, ne fonctionne qu'au début du set quand personne 
+	# Attention, ne fonctionne qu'au tout début d'un set quand personne 
 	# n'a encore marqué de points 
 	def ProvoquerUnTieBreak(self, match, joueur1, joueur2):
 		MarquerXPoints(match, joueur1, 4*5)
