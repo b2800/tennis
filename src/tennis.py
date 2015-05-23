@@ -5,6 +5,7 @@ class MatchDeTennis:
 	def __init__(self, joueur1, joueur2):
 		self.joueur1 = joueur1
 		self.joueur2 = joueur2
+		self.gagnant = None
 
 		self.scores = {}
 		self.scores[joueur1] = Score()
@@ -27,7 +28,6 @@ class MatchDeTennis:
 		# ( A ce stade, l'adversaire est nécessairement en dessous de 40)
 		if pointsJoueur == 4 or ( pointsJoueur == 3 and pointsAdverses < 3):
 			self._GagnerJeu(joueur)
-			self.scores[self.JoueurAdverse(joueur)].ResetPoint()
 			return
 
 		if pointsJoueur == 3 and pointsAdverses == 4:
@@ -49,9 +49,12 @@ class MatchDeTennis:
 	def ListeDesSetsDuJoueur(self, joueur):
 		return self.scores[joueur].ListeDesSets()
 
+	def SetNumeroXDuJoueur(self, joueur, n_set):
+		return self.scores[joueur].ListeDesSets()[n_set-1]
+
 	def NombreSetsGagnesDuJoueur(self, joueur):
 		nb = 0
-		nb_sets_joues = len(self.scores[joueur].ListeDesSets())
+		nb_sets_joues = len(self.scores[joueur].ListeDesSets())-1
 
 		for i in range(0, nb_sets_joues):
 			jeux_joueur = self.scores[joueur].ListeDesSets()[i]
@@ -66,8 +69,8 @@ class MatchDeTennis:
 		return nb
 
 	def SetTieBreak(self, value):
-		self.scores[self.joueur1].SetTieBreak(True)
-		self.scores[self.joueur2].SetTieBreak(True)
+		self.scores[self.joueur1].SetTieBreak(value)
+		self.scores[self.joueur2].SetTieBreak(value)
 
 	def _MarquerPointEnTieBreak(self, joueur):
 
@@ -77,20 +80,41 @@ class MatchDeTennis:
 		pointsAdverse = self.scores[self.JoueurAdverse(joueur)].GetPoints()
 
 		if pointsJoueur >= 7 and ( (pointsJoueur - pointsAdverse) >= 2):
-			self.scores[joueur].GagnerJeu()
-			self.scores[self.JoueurAdverse(joueur)].ResetPoint()
+			self._GagnerJeu(joueur)
 			return
-
-		
 
 	def _GagnerJeu(self, joueur):
 		self.scores[joueur].GagnerJeu()
-		sets_gagnes = self.scores[joueur].ListeDesSets()[-1] # Dernier element
-		sets_gagnes_joueur_adverse = self.scores[self.JoueurAdverse(joueur)].ListeDesSets()[-1]
+		self.scores[self.JoueurAdverse(joueur)].ResetPoint()
 
-		if sets_gagnes == 6 and sets_gagnes_joueur_adverse == 6:
+		jeux_gagnes = self.scores[joueur].ListeDesSets()[-1] # Dernier element
+		jeux_gagnes_joueur_adverse = self.scores[self.JoueurAdverse(joueur)].ListeDesSets()[-1]
+
+		if jeux_gagnes == 6 and jeux_gagnes_joueur_adverse == 6:
 			self.SetTieBreak(True)
 
+		if (jeux_gagnes == 6 and jeux_gagnes_joueur_adverse < 5) or jeux_gagnes == 7:
+			if not self._VerifierSiGagnant():
+				self.scores[joueur].NotifierSetSuivant()
+				self.scores[self.JoueurAdverse(joueur)].NotifierSetSuivant()
+				self.SetTieBreak(False)
+			
+
+	def GetGagnant(self):
+		return self.gagnant
+
+	def _VerifierSiGagnant(self):
+
+		nb_sets_joueur1 = self.NombreSetsGagnesDuJoueur(self.joueur1)
+		nb_sets_joueur2 = self.NombreSetsGagnesDuJoueur(self.joueur2)
+
+		if nb_sets_joueur1 == 3:
+			self.gagnant = self.joueur1
+
+		elif nb_sets_joueur2 == 3:
+			self.gagnant = self.joueur2
+
+		return self.gagnant is not None
 
 
 class Score:
@@ -131,12 +155,14 @@ class Score:
 	def GetPoints(self):
 		return self.point
 
-	def SetNumero(self, X):
-		return self.sets[X]
-
 	def GagnerJeu(self):
 		self.sets[-1] += 1 # Incrémente le dernier set en cours
 		self.ResetPoint()
+
+	def NotifierSetSuivant(self):
+		self.sets.append(0)
+		self.point = 0
+		self.SetTieBreak(False)
 
 	def ListeDesSets(self):
 		return self.sets
