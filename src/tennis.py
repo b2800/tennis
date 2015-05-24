@@ -12,7 +12,7 @@ class MatchDeTennis:
 		self.scores[joueur2] = Score()
 
 	# /!\ 
-	# La SEULE fonction a appeler de l'exterieur pour modifier le score.
+	# La SEULE fonction à appeler de l'exterieur pour modifier le score.
 	# Fait marquer au joueur donné un point, et fait les calculs nécessaires 
 	# automatiquement.
 	def MarquerPoint(self, joueur):
@@ -54,22 +54,24 @@ class MatchDeTennis:
 	# Retourne le nombre de sets que le joueur ciblé à gagné. 
 	def NombreSetsGagnesDuJoueur(self, joueur):
 		nb = 0
-		nb_sets_joues = len(self.scores[joueur].ListeDesSets())
+		sets_du_joueur = self.scores[joueur].ListeDesSets()
+		sets_du_joueur_adverse = self.scores[self.JoueurAdverse(joueur)].ListeDesSets()
+		nb_sets_joues = len(sets_du_joueur)
 
 		for i in range(0, nb_sets_joues):
-			jeux_joueur = self.scores[joueur].ListeDesSets()[i]
-			jeux_adverse = self.scores[self.JoueurAdverse(joueur)].ListeDesSets()[i]
+			jeux_joueur = sets_du_joueur[i]
+			jeux_adverse = sets_du_joueur_adverse[i]
 
-			if jeux_adverse == 6 or jeux_joueur == 6:
-				if jeux_joueur - jeux_adverse >= 2:
-					nb += 1
-
-			if jeux_joueur == 7:
+			if jeux_joueur == 6 and jeux_adverse <= 5:
 				nb += 1
+
+			elif jeux_joueur == 7:
+				nb += 1
+
 		return nb
 
 	## Fonctions utilitaires :
-	## Ces fonctions n'ont aucun interet en dehors de cette classe
+	## Ces fonctions n'ont peu, voir aucun interet en dehors de cette classe
 	## A n'utiliser qu'en interne uniquement	
 
 	def _SetTieBreak(self, value):
@@ -128,6 +130,7 @@ class MatchDeTennis:
 		return self.gagnant is not None
 
 
+# /!\ A ne pas manipuler. Ne doit être utilisée que par la classe MatchDeTennis
 class Score:
 
 	def __init__(self):

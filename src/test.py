@@ -6,31 +6,33 @@ from tennis import MatchDeTennis
 from tennis import Joueur
 import unittest
 
+
 class TennisTest(unittest.TestCase):
 
 	def test_peut_marquer_un_point(self):
-		federer = Joueur("federer")
+		federer = Joueur("Federer")
 		nadal = Joueur("Nadal")
 		Match = MatchDeTennis(federer, nadal)
 
 		Match.MarquerPoint(federer)
+
 		self.assertEqual(Match.PointsDuJoueur(federer), "15")
 
 	def test_peut_gagner_un_jeu_simple(self):
-		federer = Joueur("federer")
+		federer = Joueur("Federer")
 		nadal = Joueur("Nadal")
 		Match = MatchDeTennis(federer, nadal)
 
-		MarquerXPoints( Match, federer, 4)
+		MarquerXPoints(Match, federer, 4)
 
-		# On vérifie que federer a bien gagné 1 jeu lors du premier set
+		# On vérifie que Federer a bien gagné 1 jeu lors du premier set
 		self.assertEqual(Match.SetNumeroXDuJoueur(federer, 1), 1)	
 
 	def test_peut_avoir_un_avantage(self):
-		federer = Joueur("federer")
+		federer = Joueur("Federer")
 		nadal = Joueur("Nadal")
 		Match = MatchDeTennis(federer, nadal)
-
+		
 		MarquerXPoints(Match, federer, 3)
 		MarquerXPoints(Match, nadal, 4)
 
@@ -133,8 +135,10 @@ class TennisTest(unittest.TestCase):
 
 		self.assertEqual(Match.GetGagnant(), nadal)
 
-	# Attention, ne fonctionne qu'au tout début d'un set quand personne 
+	# /!\ Attention, ne fonctionne qu'au tout début d'un set quand personne 
 	# n'a encore marqué de points 
+	# Permet de provoquer un tie break (Les deux joueurs ont gagné 6 jeux au 
+	# cours du même set
 	def ProvoquerUnTieBreak(self, match, joueur1, joueur2):
 		MarquerXPoints(match, joueur1, 4*5)
 		MarquerXPoints(match, joueur2, 4*5)
@@ -145,6 +149,7 @@ class TennisTest(unittest.TestCase):
 		self.assertEqual(match.ListeDesSetsDuJoueur(joueur1)[-1], 6)
 		self.assertEqual(match.ListeDesSetsDuJoueur(joueur2)[-1], 6)
 
+# Permet de faire marquer X points au joueur passé en paramétre
 def MarquerXPoints(match, joueur, nombre):
 	for i in range(0, nombre):
 		match.MarquerPoint(joueur)
