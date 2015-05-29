@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 public class TennisTest extends TestCase
 {
 
-	Tennis jeu = new Tennis("Boris Becker", "Bjørn Borg");
+	Tennis jeu = new Tennis("nadal", "federer");
 
 	public void testNouvellePartie0Partout()
 	{
@@ -24,7 +24,7 @@ public class TennisTest extends TestCase
 
 	public void testJoueur2GagneDeuxPoints()
 	{
-		createScore(0, 2);
+		creationScore(0, 2);
 
 		String score = this.jeu.getScore();
 		assertEquals("0,30", score);
@@ -32,14 +32,14 @@ public class TennisTest extends TestCase
 
 	public void testJoueur1gagneTroisPoints()
 	{
-		createScore(3, 0);
+		creationScore(3, 0);
 		String score = this.jeu.getScore();
 		assertEquals("40,0", score);
 	}
 
 	public void testJoueurEgalite()
 	{
-		createScore(3, 3);
+		creationScore(3, 3);
 
 		String score = this.jeu.getScore();
 		assertEquals("egalite", score);
@@ -47,65 +47,65 @@ public class TennisTest extends TestCase
 
 	public void testJoueur1GagneJeu()
 	{
-		createScore(4, 0);
+		creationScore(4, 0);
 
 		String score = this.jeu.getScore();
-		assertEquals("Boris Becker wins", score);
+		assertEquals("nadal wins", score);
 	}
 
 	public void testJoueur2GagneJeu()
 	{
-		createScore(1, 4);
+		creationScore(1, 4);
 
 		String score = this.jeu.getScore();
-		assertEquals("Bjørn Borg wins", score);
+		assertEquals("federer wins", score);
 	}
 
-	public void testPlayersAreDuce4()
+	public void testJoueur40Partout()
 	{
-		createScore(4, 4);
+		creationScore(4, 4);
 		String score = this.jeu.getScore();
 		assertEquals("egalite", score);
 	}
 
-	public void testPlayerTwoAdvantage()
+	public void testJoueur2Avantage()
 	{
-		createScore(4, 5);
+		creationScore(4, 5);
 
 		String score = this.jeu.getScore();
-		assertEquals("Advantage Bjørn Borg", score);
+		assertEquals("Advantage federer", score);
 	}
 
-	public void testPlayerOneAdvantage()
+	public void testJoueur1Avantage()
 	{
-		createScore(5, 4);
+		creationScore(5, 4);
 
 		String score = this.jeu.getScore();
-		assertEquals("Advantage Boris Becker", score);
+		assertEquals("Advantage nadal", score);
 	}
 
-	public void testPlayerTwoWins()
+	public void testJoueur2Gagne()
 	{
-		createScore(2, 4);
+		creationScore(2, 4);
 		String score = this.jeu.getScore();
-		assertEquals("Bjørn Borg wins", score);
+		assertEquals("federer wins", score);
 	}
 
-	public void testPlayerTwoWinsAfterAdvantage()
+	public void testJoueur2GagneApresAvantage()
 	{
-		createScore(6, 8);
+		creationScore(6, 8);
 		String score = this.jeu.getScore();
-		assertEquals("Bjørn Borg wins", score);
+		assertEquals("federer wins", score);
 	}
 
 	public void testj1gagne()
 	{
-		createScore(8, 6);
+		creationScore(8, 6);
 		String score = this.jeu.getScore();
-		assertEquals("Boris Becker wins", score);
+		assertEquals("nadal wins", score);
 	}
 
-	private void createScore(final int J1, final int J2)
+	private void creationScore(final int J1, final int J2)
 	{
 		for (int i = 0; i < J1; i++) {
 			this.jeu.j1score();
