@@ -18,11 +18,11 @@ public class Tennis
 	{
 
 		if (gagnant()) {
-			return meilleurScore() + " wins";
+			return meilleurScore() + " gagne";
 		}
 
 		if (avantage()) {
-			return "Advantage " + meilleurScore();
+			return "Avantage " + meilleurScore();
 		}
 
 		if (egalite()) {

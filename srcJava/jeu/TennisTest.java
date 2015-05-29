@@ -50,7 +50,7 @@ public class TennisTest extends TestCase
 		creationScore(4, 0);
 
 		String score = this.jeu.getScore();
-		assertEquals("nadal wins", score);
+		assertEquals("nadal gagne", score);
 	}
 
 	public void testJoueur2GagneJeu()
@@ -58,7 +58,7 @@ public class TennisTest extends TestCase
 		creationScore(1, 4);
 
 		String score = this.jeu.getScore();
-		assertEquals("federer wins", score);
+		assertEquals("federer gagne", score);
 	}
 
 	public void testJoueur40Partout()
@@ -73,7 +73,7 @@ public class TennisTest extends TestCase
 		creationScore(4, 5);
 
 		String score = this.jeu.getScore();
-		assertEquals("Advantage federer", score);
+		assertEquals("Avantage federer", score);
 	}
 
 	public void testJoueur1Avantage()
@@ -81,28 +81,28 @@ public class TennisTest extends TestCase
 		creationScore(5, 4);
 
 		String score = this.jeu.getScore();
-		assertEquals("Advantage nadal", score);
+		assertEquals("Avantage nadal", score);
 	}
 
 	public void testJoueur2Gagne()
 	{
 		creationScore(2, 4);
 		String score = this.jeu.getScore();
-		assertEquals("federer wins", score);
+		assertEquals("federer gagne", score);
 	}
 
 	public void testJoueur2GagneApresAvantage()
 	{
 		creationScore(6, 8);
 		String score = this.jeu.getScore();
-		assertEquals("federer wins", score);
+		assertEquals("federer gagne", score);
 	}
 
 	public void testj1gagne()
 	{
 		creationScore(8, 6);
 		String score = this.jeu.getScore();
-		assertEquals("nadal wins", score);
+		assertEquals("nadal gagne", score);
 	}
 
 	private void creationScore(final int J1, final int J2)
