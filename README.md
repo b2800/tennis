@@ -14,9 +14,12 @@ Groupe Java
 
 ## Application en Python
 ### Commentaires 
-+ Note : 
++ Note : 18
 + Points négatifs :
-  - Aucun :D 
+  - Toutes les classes sont dans le même fichier
+  - La classe joueur est inutile dans ce type d'implémentation
+  - La syntaxe des tests pour vérifier les scores est lourde
+  - Il faut faire plusieurs requêtes pour avoir le score complet (d'abord les points, puis les sets, et recommencer pour l'autre joueur)
 
 ### Lancer la suite de tests
 Si vous avez Python d'installé, vous pouvez lancer les tests sur votre machine avec la commande 
