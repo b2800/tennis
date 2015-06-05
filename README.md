@@ -14,7 +14,7 @@ Groupe Java
 
 ##Application Java
 ### Commentaires
-+ Note : 17
++ Note : 19
 + Points négatifs :
   - Certains tests sont redondant (Joueur1 gagne 3 points / Joueur2 gagne 2 points)
   - Certaines fonctions n'ont pas un nom explicite (jeu.j1Score pour faire marquer le joueur 1 par exemple)
@@ -24,7 +24,7 @@ Groupe Java
 
 ## Application en Python
 ### Commentaires 
-+ Note : 18
++ Note : 19.5
 + Points négatifs :
   - Toutes les classes sont dans le même fichier
   - La classe joueur est inutile dans ce type d'implémentation
